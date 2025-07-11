@@ -1,0 +1,660 @@
+" = = = = = = = = = = = = = = = = = = = = = = = = =
+" .vimrc
+" = = = = = = = = = = = = = = = = = = = = = = = = =
+scriptencoding utf-8
+" <Vundle>
+"<Setting up Vundle - the vim plugin bundler>
+    let iCanHazVundle=1
+    let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+    if !filereadable(vundle_readme) 
+        echo 'Installing Vundle..'
+        echo ''
+        silent !mkdir -p ~/.vim/bundle
+        silent !git clone git@github.com:VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+        let iCanHazVundle=0
+    endif
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
+    set runtimepath+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    " Let Vundle manage Vundle, required
+    Plugin 'VundleVim/Vundle.vim'
+    "Add your bundles here
+    Plugin 'dense-analysis/ale.git'
+    Plugin 'LunarWatcher/auto-pairs'
+    Plugin 'davidhalter/jedi-vim'
+    Plugin 'tpope/vim-fugitive' "So awesome, it should be illegal 
+    Plugin 'altercation/vim-colors-solarized' "T-H-E colorscheme
+    Plugin 'Vimjas/vim-python-pep8-indent'
+    Plugin 'gabrielelana/vim-markdown'
+    Plugin 'udalov/kotlin-vim'  "2025-07-11
+    " Plugin 'Syntastic' "uber awesome syntax and errors highlighter
+    " Plugin 'https://github.com/tpope/vim-fugitive' "So awesome, it should be illegal 
+    " Plugin 'syntastic'
+    " Plugin 'sensible'
+
+    "...All your other bundles...
+    if iCanHazVundle == 0
+        echo 'Installing Vundles, please ignore key map error messages'
+        echo ''
+        :PluginInstall
+    endif
+
+    " All of your Plugins must be added before the following line
+    call vundle#end()  " required, must be last
+    filetype plugin indent on  " load filetype plugins/indent settings
+    syntax on                  " enable syntax
+"</Setting up Vundle - the vim plugin bundler>
+" ALE init
+" Available Linters (python): ['bandit', 'cspell', 'flake8', 'flakehell', 'jedils',
+"                              'mypy', 'prospector', 'pycln', 'pycodestyle',
+"                              'pydocstyle', 'pyflakes', 'pylama', 'pylint',
+"                              'pylsp', 'pyre', 'pyright', " 'refurb', 'ruff',
+"                              'unimport', 'vulture']
+let g:ale_cache_executable_check_failures = v:null
+let g:ale_change_sign_column_color = v:false
+let g:ale_command_wrapper = ''
+let g:ale_completion_delay = 200
+let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 1
+let g:ale_completion_max_suggestions = 50
+let g:ale_disable_lsp = 'auto'
+let g:ale_echo_cursor = v:true
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_format = '%code: %%s'
+let g:ale_echo_msg_info_str = 'Info'
+let g:ale_echo_msg_warning_str = 'WARning'
+let g:ale_enabled = 1
+let g:ale_fix_on_save = v:false
+let g:ale_fixers = {'markdown': ['prettier', 'pandoc'],
+            \ 'python': ['black', 'ruff'],
+            \ 'c': ['astyle', 'clang-format'],
+            \ 'cpp': ['astyle', 'clang-format'] }
+" let g:ale_fixers = {'markdown': ['prettier', 'pandoc'], 'python': ['black']}
+let g:ale_history_enabled = v:true
+let g:ale_history_log_output = v:true
+let g:ale_hover_cursor = 1
+let g:ale_hover_to_preview = 1
+let g:ale_info_default_mode = 'preview'
+let g:ale_keep_list_window_open = 0
+let g:ale_lint_delay = 1200
+let g:ale_lint_on_enter = v:true
+let g:ale_lint_on_filetype_changed = v:true
+let g:ale_lint_on_insert_leave = v:true
+let g:ale_lint_on_save = v:true
+let g:ale_lint_on_text_changed = v:false
+let g:ale_linter_aliases = {}
+" let g:ale_linters = {'vim': ['vint'],
+" \                    'bash': ['shellcheck'],
+" \                    'sh': ['shellcheck']
+" \ }
+" \                    'python': ['pylint', 'flake8', 'ruff', 'pycodestyle'],
+" let g:ale_linters = {}
+let g:ale_linters_explicit = v:false
+let g:ale_linters_ignore = {'sh': ['cspell'],
+            \ 'c': ['aspell', 'cspell'],
+            \ 'cpp': ['aspell', 'cspell'],
+            \ 'python': ['mypy', 'ruff', 'pycodestyle', 'pyright', 'pyflakes']}
+let g:ale_list_vertical = v:false
+let g:ale_list_window_size = 10
+let g:ale_loclist_msg_format = '%code: %%s'
+let g:ale_max_buffer_history_size = 20
+let g:ale_max_signs = -1
+let g:ale_maximum_file_size = v:null
+let g:ale_open_list = v:false
+let g:ale_pattern_options = v:null
+let g:ale_pattern_options_enabled = v:null
+let g:ale_root = {}
+let g:ale_set_balloons = v:false
+let g:ale_set_highlights = 1
+let g:ale_set_highlights = 1
+let g:ale_set_loclist = v:true
+let g:ale_set_quickfix = v:false
+let g:ale_set_signs = v:true
+let g:ale_sign_column_always = v:false
+let g:ale_sign_error = 'E'
+let g:ale_sign_highlight_linenrs = v:false
+let g:ale_sign_info = 'I'
+let g:ale_sign_offset = 1000000
+let g:ale_sign_style_error = 'E'
+let g:ale_sign_style_warning = 'W'
+let g:ale_sign_warning = 'W'
+let g:ale_type_map = {}
+let g:ale_use_global_executables = v:null
+let g:ale_use_neovim_diagnostics_api = v:false
+let g:ale_virtualtext_cursor = 'all'
+let g:ale_warn_about_trailing_blank_lines = v:true
+let g:ale_warn_about_trailing_whitespace = v:true
+
+" vim-jedi automatic initialisation
+" let g:jedi#auto_initialization = 1
+
+" <syntastic>
+    " syntastic recommended settings
+    " (https://github.com/vim-syntastic/syntastic)
+"    set statusline+=%#warningmsg#
+"    set statusline+=%{SyntasticStatuslineFlag()}
+"    set statusline+=%*
+"    let g:syntastic_always_populate_loc_list = 1
+"    let g:syntastic_auto_loc_list = 1
+"    let g:syntastic_check_on_open = 1
+"    let g:syntastic_check_on_wq = 0
+" </syntastic>
+
+"*****************************************************************************
+""" Basic Setup
+"*****************************************************************************"
+""" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set bomb
+set binary
+set ttyfast
+
+"" Fix backspace indent
+" set backspace=indent,eol,start
+
+" faster scroll when syntax on
+set lazyredraw
+"
+" "" Tabs. May be overriten by autocmd rules
+" set tabstop=4
+" set softtabstop=2
+" set shiftwidth=2
+" set expandtab
+"
+" "" Map leader to [space]
+" let mapleader=' '
+"
+" "" Enable hidden buffers
+" set hidden
+"
+" "" Searching
+" set hlsearch
+" set incsearch
+" set ignorecase
+" set smartcase
+"
+" "" Directories for swp files
+" set nobackup
+" set noswapfile
+"
+" set fileformats=unix,dos,mac
+" set showcmd
+" set shell=/bin/sh
+"
+" " enable mouse support
+" set mouse=a
+"
+" " splits
+set splitbelow
+set splitright
+"
+"*****************************************************************************
+
+
+" set statusline to its default
+set statusline =
+" show the cursor position all the time
+set ruler               
+
+" DISABLE the hated parentheses highlighting
+" let g:loaded_matchparen = 1
+" 2025-06-02:
+" https://stackoverflow.com/questions/34675677/disable-highlight-matched-parentheses-in-vim-let-loaded-matchparen-1-not-w
+" Disable parentheses matching depends on system.
+" This way we should address all cases (?)
+" set noshowmatch
+" NoMatchParen " This doesnt work as it belongs to a plugin, which is only loaded _after_ all files are.
+" Trying disable MatchParen after loading all plugins
+"
+" function! g:FckThatMatchParen ()
+"     if exists(':NoMatchParen')
+"         :NoMatchParen
+"     endif
+" endfunction
+"     
+" augroup plugin_initialize
+"     autocmd!
+"     autocmd VimEnter * call FckThatMatchParen()
+" augroup END
+
+" -------------------------------------------------------------------------------
+" Format options (:set formatoptions=characters):
+    " t: automatically wrap text
+    " c: automatically wrap comments; insert comment leader
+    " r: insert comment leader in a comment when a new line is inserted
+    " o: insert comment leader in a comment when a new line is created using the O and o commands
+    " b: wrap only on blanks you type, but only if they occur before 'textwidth'
+    " 1: do not break a line in insert mode; only let gq break the lines
+    " 2: format based on indent of second line, not the first
+    " q: allow gc to format comments
+
+" Example:
+"   :set formatoptions=tcro1
+" -------------------------------------------------------------------------------
+set formatoptions=tcroql
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+"   :au[tocmd] [group] {event} {aupat} [++once] [++nested] {cmd}
+"           Add {cmd} to the list of commands that Vim will
+"           execute automatically on {event} for a file matching
+"           {aupat} autocmd-patterns.
+"
+"           Here {event} cannot be "*".  E1155
+"
+"           Note: A quote character is seen as argument to the
+"                 :autocmd and won't start a comment.
+"
+"           Vim always adds the {cmd} after existing autocommands,
+"           so that the autocommands execute in the order in which
+"           they were given.
+"
+"           If [++once] is supplied the command is executed once,
+"           then removed ("one shot").
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+augroup formatoptions
+    autocmd!
+    autocmd FileType * set formatoptions=tcroql
+augroup END
+
+
+"--------------------------------------------
+" Indent automatically depending on filetype
+"--------------------------------------------
+filetype indent on
+filetype plugin indent on
+
+"--------------------------------------------
+" Auto-indentation
+" Aliases: 'autoindent', 'ai'
+"--------------------------------------------
+set autoindent
+
+"--------------------------------------------
+" **autowrite**, **aw**:    boolean (default off), global
+"         Write the contents of the file, if it has been
+"         modified, on each :next, :rewind, :last, :first,
+"         :previous, :stop, :suspend, :tag, :!, make,
+"         CTRL-], and CTRL-^ command; and when a :buffer,
+"         CTRL-O, CTRL-I, '{A-Z0-9}, or `{A-Z0-9} command
+"         takes one to another file.
+" **autowriteall**: boolean (default off), global
+"         Like 'autowrite', but also used for commands ":edit", ":enew", ":quit",
+"         ":qall", ":exit", ":xit", ":recover" and closing the Vim window.
+"         Setting this option also implies that Vim behaves like 'autowrite' has
+"         been set.
+"--------------------------------------------
+" set autowrite
+set autowriteall
+
+"--------------------------------------------
+" **backup**, **bk**:   boolean (default:off), global
+"        Make a backup before overwriting a file.  Leave it around after the
+"        file has been successfully written.  If you do not want to keep the
+"        backup file, but you do want a backup while the file is being
+"        written, reset this option and set the **writebackup** option (this is
+"        the default).  If you do not want a backup file at all reset both
+"        options (use this if your file system is almost full).  See the
+"        **backup-table** for more information.
+"        NOTE: This option is reset when **compatible** is set.
+"--------------------------------------------
+" set backup
+" set nowritebackup
+
+"--------------------------------------------
+" Line numbering
+" Aliases: 'number', 'nu'
+"--------------------------------------------
+set number
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" Case insensitive search
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+set ignorecase  " Use case-INsensitive search"
+set smartcase  " Do smart case matching
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" While typing a search command, show where the
+" pattern, as it was typed so far, matches.
+" Aliases: 'incsearch', 'is'
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+set incsearch
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" Higlight search
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" set hls
+set nohlsearch
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" Show (partial) command in status line.
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+set showcmd
+
+" display completion matches in a status line
+set wildmenu
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" Key-bindings for navigating split windows
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+" PEP 8 indentation (Python)
+" - - - - - - - - - - - - - - - - - - - - - - - - -
+augroup pep8indent
+    autocmd!
+    autocmd BufNewFile,BufRead *.py
+        \ set tabstop=4
+        \ shiftwidth=4
+        \ softtabstop=4
+        \ textwidth=79
+        \ expandtab
+        \ autoindent
+        \ fileformat=unix
+        \ noignorecase
+augroup END
+
+" ------------------------------------------------------------------------------------------------------
+" Wrap text at 'breakat':
+"
+"       **linebreak** **lbr**        boolean    (default off)
+"                                   local to window
+"                                   {not available when compiled without the |+linebreak| feature}
+"
+"           If on, Vim will wrap long lines at a character in 'breakat' rather
+"           than at the last character that fits on the screen.
+"
+"           Unlike 'wrapmargin' and 'textwidth', this does not insert <EOL>s in the file,
+"           it only affects the way the file is displayed, not its contents.
+"
+"           If 'breakindent' is set, line is visually indented. Then, the value
+"           of 'showbreak' is used to put in front of wrapped lines. This option
+"           is not used when the 'wrap' option is off.
+"
+"           Note that <Tab> characters after an <EOL> are mostly not displayed
+"           with the right amount of white space.
+" ------------------------------------------------------------------------------------------------------
+set linebreak
+
+" -------------------------------------------------------------------------------
+" **backspace**:    string  (default "", set to "indent,eol,start" in defaults.vim)
+"        Influences the working of <BS>, <Del>, CTRL-W and CTRL-U in Insert
+"        mode.  This is a list of items, separated by commas.  Each item allows
+"        a way to backspace over something:
+"
+"        **value**   **effect**
+"         indent        allow backspacing over autoindent
+"         eol            allow backspacing over line breaks (join lines)
+"         start            allow backspacking over the start of insert; CTRL-W
+"                         and CTR-U stop once at the start of insert
+"         nostop        like start, except CTRL-W and CTRL-U do not stop at
+"                         the start of insert
+"
+"        When the value is empty, Vi compatible backspacing is used, none of
+"        the ways mentioned for the items above are possible.
+"
+"        For backwards compatibility with version 5.4 and earlier:
+"        **value**   **effect**
+"            0          same as ":set backspace=" (Vi compatible)
+"            1          same as ":set backspace=indent,eol"
+"            2          same as ":set backspace=indent,eol,start"
+"            3          same as ":set backspace=indent,eol,nostop"
+"
+"
+" -------------------------------------------------------------------------------
+set backspace = "indent,eol,start"
+
+" -------------------------------------------------------------------------------
+"      'fileencoding' 'fenc'        string (default: "")
+"                                   local to buffer
+"        Sets the character encoding for the file of this buffer. 
+"
+"        When 'fileencoding' is different from 'encoding', conversion will be
+"        done when writing the file.  For reading see below.
+"        When 'fileencoding' is empty, the same value as 'encoding' will be
+"        used (no conversion when reading or writing a file).
+"        No error will be given when the value is set, only when it is used,
+"        only when writing a file.
+"
+"       'fileencodings' 'fencs'     string (default: "ucs-bom",
+"                                   "ucs-bom,utf-8,default,latin1" when
+"                                   'encoding' is set to a Unicode value)
+"                                   global
+"
+"           This is a list of character encodings considered when starting to edit
+"           an existing file.  When a file is read, Vim tries to use the first
+"           mentioned character encoding.  If an error is detected, the next one
+"           in the list is tried.  When an encoding is found that works,
+"           'fileencoding' is set to it.  If all fail, 'fileencoding' is set to
+"           an empty string, which means the value of 'encoding' is used.
+" -------------------------------------------------------------------------------
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,default,latin1
+
+" -------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
+set helplang=en
+
+" -------------------------------------------------------------------------------
+"       **modeline** **ml**                    boolean    (Vim default: on (off for root),
+"                                                        Vi default: off)
+"                                           local to buffer
+"           If 'modeline' is on 'modelines' gives the number of lines that is
+"           checked for set commands.  If 'modeline' is off or 'modelines' is zero
+"           no lines are checked.  See |modeline|.
+" -------------------------------------------------------------------------------
+set modeline
+
+" -------------------------------------------------------------------------------
+"    **modelines** **mls**                        number    (default 5)
+"                                                global
+"       If 'modeline' is on 'modelines' gives the number of lines that is
+"       checked for set commands.  If 'modeline' is off or 'modelines' is zero
+"       no lines are checked.  See |modeline|.
+"       NOTE: 'modeline' is set to the Vi default value when 'compatible' is
+"       set and to the Vim default value when 'compatible' is reset.
+" -------------------------------------------------------------------------------
+set modelines=5
+
+
+" set window=0
+" vim: set ft=vim :
+"
+"  tabstop
+"  The width of a hard tabstop measured in "spaces" -- effectively the
+"  (maximum) width of an actual tab character.
+"
+set tabstop=4 softtabstop=0
+"  shiftwidth
+"  The size of an "indent". It's also measured in spaces, so if your code
+"  base indents with tab characters then you want shiftwidth to equal the
+"  number of tab characters times tabstop. This is also used by things like
+"  the =, > and < commands.
+set shiftwidth=4
+
+"  softtabstop
+"  Setting this to a non-zero value other than tabstop will make the tab key
+"  (in insert mode) insert a combination of spaces (and possibly tabs) to simulate tab stops at this width.
+
+"  expandtab
+"  Enabling this will make the tab key (in insert mode) insert spaces instead
+"  of tab characters. This also affects the behavior of the retab command.
+set expandtab
+
+"  smarttab
+"  Enabling this will make the tab key (in insert mode) insert spaces or
+"  tabs to go to the next indent of the next tabstop when the cursor is at
+"  the beginning of a line (ie: the only preceding characters are whitespace).
+" set smarttab
+
+" # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+" Set colorscheme
+" # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+"        colorscheme bclear
+"        colorscheme darkburn
+"        colorscheme default
+"        colorscheme delek
+"        colorscheme elflord
+"        colorscheme maroloccio
+"        colorscheme morning
+"        colorscheme sienna
+
+"" Adapt to time of day...
+"" Progressively check higher values... falls out on first "true"
+"" (note addition of zero ... this guarantees return from function is numeric
+"    echo strftime("%H:%M")
+
+    " 00:00-04:59
+    if strftime('%H') < 5 + 0
+        colorscheme elflord
+        set background=light
+"        echo 'setting colorscheme to darkblue'
+    " 05:00-17:59
+    elseif strftime('%H') < 18  + 0
+        colorscheme morning
+        set background=light
+    " 18:00-20:59
+    elseif strftime('%H') < 21 + 0
+        colorscheme elflord
+        set background=dark
+    " 18:00-23:59
+    else
+        colorscheme elflord
+        set background=light
+    endif
+
+" #############################
+" Symbol macro definitions
+" #############################
+" let @f = 'iF^\infty ^['
+" let @g = 'iG^\infty ^['
+" let @r = 'i\rightarrow ^['
+" let @n = 'i\lnot ^['
+" let @m = 'i\matchcal{<80>kr} ^[<80>ýa ^['
+" let @o = 'i\models ^['
+" let @d = 'i\Diamond{<80>kr} ^[<80>ýa ^['
+" let @d = 'i\Box{<80>kr} ^[<80>ýa ^['
+" let @t = 'i\text{}^[:<80>kb'
+
+" ############################
+" Mappings
+" ############################
+" An example mapping that will
+" surround a word with curly braces:
+map <F5> bi{<Esc>ea}<Esc>
+
+" ############################
+" Command defs
+" ############################
+command Term rightbelow term
+command TermVert rightbelow vert term
+
+" ############################
+" Copy text to System Clipboard
+" ############################
+" set clipboard+=unnamedplus
+
+" Quite a few people accidentally type "q:" instead of ":q" and get confused
+" by the command line window.  Give a hint about how to get out.
+" If you don't like this you can put this in your vimrc:
+" ":autocmd! vimHints"
+augroup vimHints
+autocmd!
+autocmd CmdwinEnter *
+	  \ echohl Todo |
+	  \ echo gettext('You discovered the command-line window! You can close it with ":q".') |
+	  \ echohl None
+augroup END
+
+" We know xterm-debian is a color terminal
+" if &term =~ "xterm-debian" || &term =~ "xterm-xfree86" || &term =~ "tmux-256color"
+if &term =~# 'xterm-debian' || &term =~# 'xterm-xfree86' || &term =~# 'tmux-256color'
+set t_Co=256
+set t_Sf=[3%dm
+set t_Sb=[4%dm
+endif
+
+
+if 1
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  " Revert with ":filetype off".
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that you can revert them with:
+  " ":augroup vimStartup | exe 'autocmd!' | augroup END"
+augroup vimStartup
+    autocmd!
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid, when inside an event handler
+    " (happens when dropping a file on gvim) and for a commit message (it's
+    " likely a different one than last time).
+    autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+  augroup END
+
+  " Quite a few people accidentally type "q:" instead of ":q" and get confused
+  " by the command line window.  Give a hint about how to get out.
+  " If you don't like this you can put this in your vimrc:
+  " ":augroup vimHints | exe 'autocmd!' | augroup END"
+augroup vimHints
+    autocmd!
+    autocmd CmdwinEnter *
+        \ echohl Todo | 
+        \ echo 'You discovered the command-line window! You can close it with ":q".' |
+        \ echohl None
+augroup END
+
+endif
+
+" Switch syntax highlighting on when the terminal has colors or when using the
+" GUI (which always has colors).
+if &t_Co > 2 || has('gui_running')
+  " Revert with ":syntax off".
+  syntax on
+
+  " I like highlighting strings inside C comments.
+  " Revert with ":unlet c_comment_strings".
+  let c_comment_strings = 1
+endif
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(':DiffOrig')
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+if has('langmap') && exists('+langremap')
+  " Prevent that the langmap option applies to characters that result from a
+  " mapping.  If set (default), this may break plugins (but it's backward
+  " compatible).
+  set nolangremap
+endif
+
+" Pyshebang() - insert '#!/usr/bin/env python'. Usage: ':1,1call Pyshebang()'
+function! Pyshebang()
+    execute '1,1s/^/#!\/usr\/bin\/env python\r/'
+endfunction
+
+" WSrm() - remove trailing whitespace
+function! WSrm()
+    execute '%s/  *$//'
+endfunction
+
+" Merlin (OCaml)
+" set rtp^='~/.opam/default/share/ocp-indent/vim'
+let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+execute 'set rtp+=' . g:opamshare . '/merlin/vim'
